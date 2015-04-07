@@ -16,6 +16,7 @@ def hist(word):
 h = hist('abcdsfjasld')
 print(h)
 
+#1. 
 fin = open('words.txt')
 anagrams_dict = dict()
 for line in fin:
@@ -26,23 +27,38 @@ for line in fin:
     else:
         anagrams_dict[tuple(h.items())] = [word]
 
+#2. 
 summary = []
 for key, val in anagrams_dict.items():
-    summary.append((len(val),key,val))
+    if len(val) > 1:
+        summary.append((len(key),key,val))
 summary.sort(reverse=True)
 
 for i in range(0,3):
     print(summary[i])
 
-# Bingo with 8 letters
+# 3. Bingo with 8 letters
+max_possible_bingo = 0
 for n, key, val in summary:
     if n == 8:
-        print(val)
+        if len(val) > max_possible_bingo:
+            val_max = val
+            max_possible_bingo = len(val)
+print(val_max)
+        
 
-# metathesis pair
+#4.  metathesis pair
 for n, h, words in summary:
     if n > 1:
-        for w in words:
+        K = len(words)
+        for i in range(K):
+            for j in range(i+1,K):
+                count = 0
+                for l in range(len(words[i])):
+                    count += words[i][l]!=words[j][l]
+                if count == 2:
+                    print(words[i], words[j])
+
             
         
 
